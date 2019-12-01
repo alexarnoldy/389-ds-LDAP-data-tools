@@ -1,0 +1,13 @@
+# Create the hash with: /usr/sbin/slappasswd -h {SSHA} -s <password> 
+# or http://projects.marsching.org/weave4j/util/genpassword.php
+dn: uid=USERID,ou=OU_NAME,SUFFIX
+changetype: add
+objectClass: person
+objectClass: inetOrgPerson
+objectClass: top
+uid: USERID
+userPassword: PASSWORD_HASH
+givenname: FIRST_NAME
+sn: SURNAME
+cn: FULL_NAME
+mail: EMAIL_ADDRESS

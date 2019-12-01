@@ -1,0 +1,2 @@
+dn: uid=USER_ID,ou=OU_NAME,SUFFIX
+changetype: delete

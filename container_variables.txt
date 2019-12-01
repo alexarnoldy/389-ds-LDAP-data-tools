@@ -1,0 +1,13 @@
+LDAP_SERVER_FQDN=localhost                      # Directory Server Name. Set to FQDN, if it is resolvable, otherwise set to localhost
+ROOT_DN="cn=admin,dc=caaspv4,dc=com"            # Admin account Distinguished Name
+ROOT_PASSWORD=myp@ssw0rd                        # Admin Password. Don't use quotes
+SUFFIX="dc=caaspv4,dc=com"                      # Domain Suffix
+DATA_DIR=/home/sles/ldap-server/389_ds_data     # Directory Server Data on Host Machine to Mount
+CONTAINER_NAME=389-ds-ldap-server		# Name of container that will be run
+LDAP_PROTOCOL=ldap                              # ldap, ldaps
+LDAP_SERVER_PORT=:389				# Set to non-TLS (:389) unless TLS (:636) has been configured
+BIND_DN="$ROOT_DN"				# Admin account Distinguished Name
+LDIF_OU_UPDATE_FILE=./update_ou.ldif		# LDIF File containing Organizational Units to be added/removed
+LDIF_GROUP_UPDATE_FILE=./update_group.ldif	# LDIF File containing Groups to be added/removed 
+LDIF_USER_ADD_FILE=./add_user.ldif		# LDIF File containing Users to be added
+LDIF_USER_DELETE_FILE=./delete.ldif		# LDIF File containing Users to be removed 

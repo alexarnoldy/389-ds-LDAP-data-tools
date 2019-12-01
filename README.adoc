@@ -1,6 +1,8 @@
 #### This is a collection of very simple tools to search and update a 389-ds LDAP server container or K8s deployment
 
-* Use an editor to update the container_variables.txt file for your environment
+* (Optional) Create a directory to contain these tools and the 389-ds LDAP server container: `mkdir ./389-ds-ldap-server && cd $_`
+* Clone this repository: `git clone git@github.com:alexarnoldy/389-ds-LDAP-data-tools.git && cd 389-ds-LDAP-data-tools`
+* Use an editor to update the container_variables.txt file to fit your environment
 
 NOTE: Sourcing the container_variables.txt file before each command ensures the correct variables are available for each command invocation
 

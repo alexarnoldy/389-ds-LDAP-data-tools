@@ -1,24 +1,8 @@
+#### This is a collection of very simple tools to search and update a 389-ds LDAP server container or K8s deployment
+
 * Use an editor to update the container_variables.txt file for your environment
-* Source the container_variables.txt file and create the 389-ds data directory: `. container_variables.txt && mkdir $DATA_DIR`
 
 NOTE: Sourcing the container_variables.txt file before each command ensures the correct variables are available for each command invocation
-
-* Run the container:
-----
-. container_variables.txt && sudo podman run -d \
-	-p 389:389 \
-	-p 636:636 \
-	-e INSTANCE_NAME=$INSTANCE_NAME \
-	-e ROOT_DN=$ROOT_DN \
-	-e ROOT_PASSWORD=$ROOT_PASSWORD \
-	-e SUFFIX=$SUFFIX \
-	-v $DATA_DIR:/data \
-	--name $CONTAINER_NAME registry.suse.com/caasp/v4/389-ds:1.4.0
-----
-
-* Install LDAP client tools on a system that can access the LDAP server (the local system if INSTANCE_NAME is localhost): `sudo zypper -n install openldap2-client`
-
-* Run a test search: `. container_variables.txt && ldapsearch -x -H ldap://localhost -b $SUFFIX -D "$ROOT_DN" -w $ROOT_PASSWORD`
 
 NOTE: This section of the administration guide contains example for managing OU's, users, and groups: https://documentation.suse.com/suse-caasp/4.0.2/single-html/caasp-admin/#_adding_a_new_organizational_unit
  

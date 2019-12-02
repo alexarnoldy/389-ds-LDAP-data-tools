@@ -3,11 +3,13 @@
 * (Optional) Create a directory to contain these tools and the 389-ds LDAP server container: `mkdir -p ~/389-ds-ldap-server && cd $_`
 * Clone this repository: `git clone git@github.com:alexarnoldy/389-ds-LDAP-data-tools.git && cd 389-ds-LDAP-data-tools`
 * Use an editor to update the container_variables.txt file to fit your environment
+* Install LDAP client tools on a system that can access the LDAP server (the local system if INSTANCE_NAME is localhost): `sudo zypper -n install openldap2-client`
 
 NOTE: Sourcing the container_variables.txt file before each command ensures the correct variables are available for each command invocation
 
 NOTE: This section of the CaaS Platform administration guide contains examples for managing OU's, users, and groups: https://documentation.suse.com/suse-caasp/4.0.2/single-html/caasp-admin/#_adding_a_new_organizational_unit
- 
+
+CAUTION: These tools must be run in the same directory as the container_variable.txt file
  
 .To add a new Organizational Unit:
 * Create the update file(s) and place them in the updates-processing directory: 

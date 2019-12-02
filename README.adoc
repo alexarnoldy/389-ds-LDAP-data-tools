@@ -76,8 +76,17 @@ done
 * Continue with more updates or move on to the "Apply all of the update file(s) in the updates-proccessing directory" section
 
 .To add a new User:
-* Create the update file(s) and place them in the updates-processing directory: 
-----
+* Create the update file(s) and place them in the updates-processing directory: `./add_user.sh`
+** Be prepared to provide the following information:
+*** The login name for the new user (with no spaces)
+*** The Organizational Unit to place the new user in
+*** The SSHA hash of the user's password (can use a website like https://www.mkpasswd.net/ and select the hash type of ldap ssha
+*** The user's first name
+*** The users' last name
+*** The user's full name
+*** The user's email address
+
+////
 while : ; do \
 read -p "Enter new User login name (or Ctrl+c to end): " USERID; \
 read -p "Enter the existing OU to create the user in: " OU_NAME; \
@@ -100,12 +109,16 @@ s/SURNAME/$SURNAME/; \
 s/FULL_NAME/$FULL_NAME/; \
 s/EMAIL_ADDRESS/$EMAIL_ADDRESS/" updates-processing/$LDIF_UPDATE_FILE; \
 done
-----
+////
 * Continue with more updates or move on to the "Apply all of the update file(s) in the updates-proccessing directory" section
 
 .To delete a User:
-* Create the update file(s) and place them in the updates-processing directory: 
-----
+* Create the update file(s) and place them in the updates-processing directory: `./delete_user.sh`
+** Be prepared to provide the following information:
+*** The login name of the existing user (with no spaces)
+*** The Organizational Unit the user exists in
+
+////
 while : ; do \
 read -p "Enter User login name to delete (or Ctrl+c to end): " USER_ID; \
 read -p "Enter the OU that contains the user to delete: " OU_NAME; \ 
@@ -117,12 +130,18 @@ sed -i "s/USER_ID/$USER_ID/; \
 s/OU_NAME/$OU_NAME/; \
 s/SUFFIX/$SUFFIX/" updates-processing/$LDIF_UPDATE_FILE; \
 done
-----
+////
 * Continue with more updates or move on to the "Apply all of the update file(s) in the updates-proccessing directory" section
 
 .To add a User to an existing group:
-* Create the update file(s) and place them in the updates-processing directory: 
-----
+* Create the update file(s) and place them in the updates-processing directory: `add_user_to_group.sh`
+** Be prepared to provide the following information:
+*** The login name of the existing user (with no spaces)
+*** The Organizational Unit the user exists in
+*** The name of the existing group the user will added to 
+*** The Organizational Unit the group exists in
+
+////
 while : ; do \
 read -p "Enter the User login name to add to a group (or Ctrl+c to end): " USER_ID; \
 read -p "Enter the existing OU that contains the USER: " USER_OU_NAME; \
@@ -138,13 +157,15 @@ s/GROUP_NAME/$GROUP_NAME/; \
 s/GROUP_OU_NAME/$GROUP_OU_NAME/; \
 s/SUFFIX/$SUFFIX/" updates-processing/$LDIF_UPDATE_FILE; \
 done
-----
+////
 * Continue with more updates or move on to the "Apply all of the update file(s) in the updates-proccessing directory" section
 
 .Apply all of the update file(s) in the updates-proccessing directory: 
 * Review all of the files in the updates-proccessing directory before proceeding
 * Additional .ldif files can be added for batch processing if they fit the schema of the LDAP database
-----
+* Apply the update files: `apply_updates.sh`
+
+////
 for EACH_UPDATE in `ls -1 updates-processing/`; do \
 LDIF_COMPLETED_STUB=`echo $EACH_UPDATE | awk -F- '{print$1}'`; \
 LDIF_COMPLETED_FILE=$LDIF_COMPLETED_STUB-`date +"%d.%b.%Y.%H.%M.%S"`.ldif; \
@@ -153,7 +174,10 @@ ldapmodify -v -H $LDAP_PROTOCOL://$LDAP_SERVER_FQDN$LDAP_SERVER_PORT -D "$BIND_D
 mv updates-processing/$EACH_UPDATE updates-completed/$LDIF_COMPLETED_FILE; \
 sleep 1; \
 done
-----
+////
+* Review the output for any errors/failures
+* Check the updates-processing directory for any update files that were not applied
+* files in the updates-processing directory can be manually edited before attempting to apply them again
 
 
 

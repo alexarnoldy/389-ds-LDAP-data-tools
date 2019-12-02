@@ -12,8 +12,11 @@ NOTE: This section of the CaaS Platform administration guide contains examples f
 CAUTION: These tools must be run in the same directory as the container_variable.txt file
  
 .To add a new Organizational Unit:
-* Create the update file(s) and place them in the updates-processing directory: 
-----
+* Create the update file(s) and place them in the updates-processing directory: `add_ou.sh`
+** Be prepared to provide the following information:
+*** The name of the new Organizational Unit
+
+////
 while : ; do \
 read -p "Enter new OU name (or Ctrl+c to end): " OU_NAME; \
 echo ""; \
@@ -23,12 +26,15 @@ source container_variables.txt && \
 sed -i "s/OU_NAME/$OU_NAME/; \
 s/SUFFIX/$SUFFIX/" updates-processing/$LDIF_UPDATE_FILE; \
 done
-----
+////
 * Continue with more updates or move on to the "Apply all of the update file(s) in the updates-proccessing directory" section
 
 .To delete an Organizational Unit:
-* Create the update file(s) and place them in the updates-processing directory: 
-----
+* Create the update file(s) and place them in the updates-processing directory: `delete_ou.sh`
+** Be prepared to provide the following information:
+*** The name of the existing Organizational Unit to delete
+
+////
 while : ; do \
 read -p "Enter name of OU to delete (or Ctrl+c to end): " OU_NAME; \
 echo ""; \
@@ -38,12 +44,16 @@ source container_variables.txt && \
 sed -i "s/OU_NAME/$OU_NAME/; \
 s/SUFFIX/$SUFFIX/" updates-processing/$LDIF_UPDATE_FILE; \
 done
-----
+////
 * Continue with more updates or move on to the "Apply all of the update file(s) in the updates-proccessing directory" section
 
 .To add a new Group:
-* Create the update file(s) and place them in the updates-processing directory: 
-----
+* Create the update file(s) and place them in the updates-processing directory: `add_group.sh`
+** Be prepared to provide the following information:
+*** The name of the new Group to create
+*** The Organizational Unit to place the new group in
+
+////
 while : ; do \
 read -p "Enter new Group name (or Ctrl+c to end): " GROUP_NAME; \
 read -p "Enter the existing OU to create the group in: " OU_NAME; \
@@ -55,12 +65,16 @@ sed -i "s/GROUP_NAME/$GROUP_NAME/; \
 s/OU_NAME/$OU_NAME/; \
 s/SUFFIX/$SUFFIX/" updates-processing/$LDIF_UPDATE_FILE; \
 done
-----
+////
 * Continue with more updates or move on to the "Apply all of the update file(s) in the updates-proccessing directory" section
 
 .To delete a Group:
-* Create the update file(s) and place them in the updates-processing directory: 
-----
+* Create the update file(s) and place them in the updates-processing directory: `delete_group.sh`
+** Be prepared to provide the following information:
+*** The name of the existing Group to delete
+*** The Organizational Unit the group exists in
+
+////
 while : ; do \
 read -p "Enter name of Group to delete (or Ctrl+c to end): " GROUP_NAME; \
 read -p "Enter the OU that contains the group to delete: " OU_NAME; \ 
@@ -72,7 +86,7 @@ sed -i "s/GROUP_NAME/$GROUP_NAME/; \
 s/OU_NAME/$OU_NAME/; \
 s/SUFFIX/$SUFFIX/" updates-processing/$LDIF_UPDATE_FILE; \
 done
-----
+////
 * Continue with more updates or move on to the "Apply all of the update file(s) in the updates-proccessing directory" section
 
 .To add a new User:

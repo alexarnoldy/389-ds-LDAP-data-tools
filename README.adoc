@@ -145,12 +145,17 @@ done
 * Additional .ldif files can be added for batch processing if they fit the schema of the LDAP database
 ----
 for EACH_UPDATE in `ls -1 updates-processing/`; do \
+read -p "paused"; \
+LDIF_COMPLETED_STUB=`echo $EACH_UPDATE | awk -F- '{print$1}'`; \
+read -p "paused"; \
+LDIF_COMPLETED_FILE=$LDIF_COMPLETED_STUB-`date +"%d.%b.%Y.%H.%M.%S"`.ldif; \
+read -p "paused"; \
 source container_variables.txt && \
 ldapmodify -v -H $LDAP_PROTOCOL://$LDAP_SERVER_FQDN$LDAP_SERVER_PORT -D "$BIND_DN" -f updates-processing/$EACH_UPDATE -w $ROOT_PASSWORD && \
+mv updates-processing/$EACH_UPDATE updates-completed/$LDIF_COMPLETED_FILE; \
+read -p "paused"; \
 sleep 1; \
-LDIF_COMPLETED_STUB=`echo $EACH_UPDATE | awk -F- '{print$1}'`; \
-LDIF_COMPLETED_FILE=$LDIF_COMPLETED_STUB-`date +"%d.%b.%Y.%H.%M.%S"`.ldif; \
-mv updates-processing/$EACH_UPDATE updates-completed/$LDIF_COMPLETED_FILE; \ done
+done
 ----
 
 

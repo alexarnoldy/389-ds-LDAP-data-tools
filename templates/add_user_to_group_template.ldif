@@ -1,0 +1,4 @@
+dn: cn=GROUP_NAME,ou=GROUP_OU_NAME,SUFFIX
+changetype: modify
+add: uniqueMember
+uniqueMember: uid=USER_ID,ou=USER_OU_NAME,SUFFIX

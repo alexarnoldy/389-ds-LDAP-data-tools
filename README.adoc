@@ -81,7 +81,8 @@ done
 while : ; do \
 read -p "Enter new User login name (or Ctrl+c to end): " USERID; \
 read -p "Enter the existing OU to create the user in: " OU_NAME; \
-read -p "Enter the SSHA hash of the user's password (if needed, use: http://projects.marsching.org/weave4j/util/genpassword.php: " PASSWORD_HASH; \
+read -p "Enter the SSHA hash of the user's password 
+(if needed, use https://www.mkpasswd.net/ then select the ldap ssha hash type): " PASSWORD_HASH; \
 read -p "Enter new User's first name: " FIRST_NAME; \
 read -p "Enter new User's last name: " SURNAME; \
 read -p "Enter new User's full name: " FULL_NAME; \

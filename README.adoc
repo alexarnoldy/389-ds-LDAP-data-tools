@@ -10,6 +10,8 @@ NOTE: Sourcing the container_variables.txt file before each command ensures the 
 NOTE: This section of the CaaS Platform administration guide contains examples for managing OU's, users, and groups: https://documentation.suse.com/suse-caasp/4.0.2/single-html/caasp-admin/#_adding_a_new_organizational_unit
 
 CAUTION: These tools must be run in the same directory as the container_variable.txt file
+
+NOTE: The next update to this repo will move the container_variable.txt file to the ~/389-ds-ldap-server directory so both tools and server repos can point to the same file
  
 .To add a new Organizational Unit:
 * Create the update file(s) and place them in the updates-processing directory: `add_ou.sh`

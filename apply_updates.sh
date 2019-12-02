@@ -1,3 +1,10 @@
 #!/bin/bash
 
-for EACH_UPDATE in ; do LDIF_COMPLETED_STUB=; LDIF_COMPLETED_FILE=-02.Dec.2019.08.47.11.ldif; source container_variables.txt && ldapmodify -v -H :// -D "" -f updates-processing/ -w  && mv updates-processing/ updates-completed/; sleep 1; done
+for EACH_UPDATE in `ls -1 updates-processing/`; do \
+LDIF_COMPLETED_STUB=`echo $EACH_UPDATE | awk -F- '{print$1}'`; \
+LDIF_COMPLETED_FILE=$LDIF_COMPLETED_STUB-`date +"%d.%b.%Y.%H.%M.%S"`.ldif; \
+source container_variables.txt && \
+ldapmodify -v -H $LDAP_PROTOCOL://$LDAP_SERVER_FQDN$LDAP_SERVER_PORT -D "$BIND_DN" -f updates-processing/$EACH_UPDATE -w $ROOT_PASSWORD && \
+mv updates-processing/$EACH_UPDATE updates-completed/$LDIF_COMPLETED_FILE; \
+sleep 1; \
+done
